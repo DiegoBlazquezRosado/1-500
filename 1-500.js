@@ -8,25 +8,38 @@ Se solicitan 10 números enteros comprendidos entre 1 y 500, estos números se a
 const arr=[];
 const arr250=[];
 const arr500=[];
-let ten = 0;
-let userInput = "";
+let counter = 0;
+const amount = 10;
+let userInput;
 
-function partirNumeros () {
-    while (ten<10) {
-        userInput = prompt('Escribe un número: ');
-        if (isNaN(userInput)===false) {
-            if (userInput>=1 && userInput<=500) {
-                arr.push(userInput);
-                ten++;
-                if (userInput>=1 && userInput<=250) {
-                    arr250.push(userInput);
-                } else if (userInput>=251 && userInput<=500) {
-                    arr500.push(userInput);
+const partirNumeros = () => {
+    while (counter<amount) {
+        userInput = prompt(`Números introducidos: (${counter}/${amount})`);
+        if (isNaN(userInput)===false) { //null, undefined??
+            if ((userInput - Math.floor(userInput)) === 0) {
+                if (userInput>=1 && userInput<=500) {
+                    userInput = Math.floor(userInput); //force whole number
+                    arr.push(userInput);
+                    counter++; 
+                    if (userInput>=1 && userInput<=250) {
+                        arr250.push(userInput);
+                    } else if (userInput>=251 && userInput<=500) {
+                        arr500.push(userInput);
+                    }
+                } else {
+                    alert("Sólo números entre 1 - 500");
                 }
+            } else {
+                alert("Sólo números enteros");
             }
+        } else {
+            alert("Sólo números");
         }
     }
-    return console.log(arr, arr250, arr500);
+    console.log(`Array general [ ${arr.join(" / ")} ] (${arr.length})`);
+    console.log(`Array 250 [ ${arr250.join(" / ")} ] (${arr250.length})`);
+    console.log(`Array 500 [ ${arr500.join(" / ")} ] (${arr500.length})`);
+    return;
 }
 
 partirNumeros();
